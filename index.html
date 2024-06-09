@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="TaskWeb">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Husky: A Unified, Open-Source Language Agent for Multi-Step Reasoning</title>
+  <style>
+    .title-container {
+        display: flex;
+        align-items: center;
+        font-size: 24px; /* Adjust the font size as needed */
+    }
+    .title-container img {
+        width: 1em; /* Adjust the width of the image as needed */
+        height: 1em;
+        margin-right: 0px; /* Adjust the space between the image and text */
+    }
+</style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">          
+          <h1 class="title is-1 publication-title"><img src="./static/img/husky_logo.jpg" alt="Logo" width="35">Husky: A Unified, Open-Source Language Agent for Multi-Step Reasoning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://danieljkim0118.github.io/">Joongwon Kim</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://bhargaviparanjape.github.io/">Bhargavi Paranjape</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://allenai.org/team/tushark">Tushar Khot</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~hannaneh/">Hannaneh Hajishirzi</a><sup>1,3</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,</span>
+            <span class="author-block"><sup>2</sup>Meta AI,</span>
+            <span class="author-block"><sup>3</sup>Allen Institute for AI</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- preprint Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2305.13256"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/agent-husky/Husky-v1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/collections/agent-husky/husky-v1-665545c3e6ea63012f35c518"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/img/hf_logo.png">
+                  </span>
+                  <span>Models</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/agent-husky"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/img/hf_logo.png">
+                  </span>
+                  <span>HF space</span>
+                </a>
+              </span>
+            </div>
+          </div>
+          <div class="content has-text-centered">
+            <img src="./static/img/husky_teaser.png"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."
+                       width="600"/>
+            <h5 class="subtitle has-text-centered">
+              <p style="color: rgb(150, 150, 150);">
+                Husky is an open-source language agent that solves complex, multi-step reasoning tasks.
+              </p>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Introducing Husky-v1</h2>
+        <div class="content has-text-justified">
+          <p>
+          We introduce <img src="./static/img/husky_logo.jpg" alt="Logo" width="15"><strong>Husky-v1</strong>, a holistic, open-source language agent that learns to reason over a unified action space to address a diverse set of complex tasks involving  numerical, tabular, and knowledge-based reasoning.
+          <strong>Husky</strong> iterates between two stages: 1) generating the next action to take towards solving a given task, and 2) executing the action using expert models and updating the current solution state.
+          <strong>Husky-v1</strong> uses a <a href="https://huggingface.co/agent-husky/husky-v1-code-deepseekcoder-7b-instruct">code generator</a>, a <a href="https://huggingface.co/agent-husky/husky-v1-query-llama2-7b">query generator</a> and a <a href="https://huggingface.co/agent-husky/husky-v1-math-deepseekmath-7b-instruct">math reasoner</a> as expert models.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_overview.png"
+                     class="interpolation-image"
+                     alt="Interpolate start reference image."
+                     width="700"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-3">A Unified Action Space</h2>
+                <div class="content has-text-justified">
+                <p>
+                One significant feature of <strong>Husky</strong> is its unified action space, where the tools it utilizes are agnostic to the task being addressed (see below).
+                By doing so, we maintain <strong>Husky</strong>'s generalizability across numerical, tabular and knowledge-based reasoning tasks.
+                </p>
+                </div>
+                <div class="content has-text-centered">
+                    <img src="./static/img/husky_actions.png"
+                    class="interpolation-image"
+                    alt="TaskWeb image."
+                    width="600"/>
+                </div>
+                <p>
+                <strong>Husky-v1</strong> uses the following action space:
+                </p>
+                <ul>
+                  <li><strong>[code]</strong> - uses a code generator to write code that is executed by a Python interpreter.</li>
+                  <li><strong>[math]</strong> - uses a math reasoner to generate numerical solutions to execute a given step.</li>
+                  <li><strong>[search]</strong> - uses a query generator to write search queries that is executed by a Google Search engine via <a href="https://serpapi.com/">SERP API</a>.</li>
+                  <li><strong>[commonsense]</strong> - uses a commonsense reasoner to perform basic reasoning operations not covered by the actions above.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Training via Synthetic Data</h2>
+        <div class="content has-text-justified">
+          <p>
+          All modules in <strong>Husky-v1</strong> are trained using synthetic data.
+          We use a teacher LM to generate tool-integrated solution trajectories for each question in the training set.
+          Then, we extract different components of the solution trajectories to build training data for each of the modules in <strong>Husky</strong>, including the action generator and the expert models.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_training.png"
+          class="interpolation-image"
+          alt="TaskWeb image."
+          width="700"/>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Optimized Inference for Multi-Step Reasoning</h2>
+        <div class="content has-text-justified">
+          <p>
+          Contrary to implementations for previous language agents, <strong>Husky</strong> performs inference by batch processing all inputs and executing all tools (expert models) in parallel.
+          We jointly predict the next step and associated tool with the action generator over a batch of questions and their solution states, delegate the outputs to their corresponding expert model, execute the models and update our solution state based on the outputs from the expert models.
+          Then, we repeat this process over multiple iterations until the agent reaches the final answer for all questions.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_inference.png"
+          class="interpolation-image"
+          alt="TaskWeb image."
+          width="700"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <h3 class="title is-4">Main Results</h3>
+        <div class="content has-text-justified">
+          <p>
+          We evaluate <strong>Husky-v1</strong> on a set of 14 different evaluation tasks.
+          <strong>Husky-v1</strong> outperforms other language agents consistently across our evaluation tasks, and even outperforms GPT-4-Turbo on the mixed-tool reasoning tasks.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_results.png"
+          class="interpolation-image"
+          alt="Husky main results image."
+          width="600"/>
+        </div>
+        <h3 class="title is-4">GPT-4 comparisons</h3>
+        <div class="content has-text-justified">
+          <p>
+          We compare <strong>Husky-v1</strong>'s performance with GPT-4-Turbo (gpt-4-0125-preview for all tasks except GSM-8K and MATH, which use gpt-4-0613) across the same set of evaluation tasks.
+          Notably, <strong>Husky-v1</strong> outperforms GPT-4-Turbo on out-of-domain math evaluation tasks (Google DeepMind mathematics, MathQA) and mixed-tool reasoning tasks (DROP*, IIRC*, HuskyQA).
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_gpt-4_color.png"
+          class="interpolation-image"
+          alt="Husky vs GPT-4 image."
+          width="600"/>
+        </div>
+        <h3 class="title is-4">Unified vs. Disjoint Action Generator</h3>
+        <div class="content has-text-justified">
+          <p>
+          We measure <strong>Husky-v1</strong>'s performance when the action generator is trained on specific task domains.
+          As shown below, the joint action generator trained over all task categories (numerical, tabular, knowledge-based, mixedl-tool) does not incur much performance loss.
+          Our results indicate that subsequent versions of <strong>Husky</strong> can de adapted to a wider variety of tasks by scaling the action space as well as the diversity of the expert models.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/img/husky_ablation.png"
+          class="interpolation-image"
+          alt="Husky vs GPT-4 image."
+          width="600"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Get started with <img src="./static/img/husky_logo.jpg" alt="Logo" width="25">Husky</h2>
+        <h3 class="title is-4">Code and Models</h3>
+        <div class="content has-text-justified">
+          <p>
+          Refer to our <a href="https://github.com/agent-husky/Husky-v1">GitHub repo</a> to get started with using <strong>Husky-v1</strong>.
+          Download the modules for <strong>Husky-v1</strong>, as well as our mixed-tool evaluation sets, from our <a href="https://huggingface.co/agent-husky">HuggingFace repo</a>.
+          </p>
+        </div>
+        <h3 class="title is-4">More Questions?</h3>
+        <div class="content has-text-justified">
+          <p>
+          Please contact Joongwon (Daniel) Kim at jwonkim <i>at</i> cs <i>dot</i> washington <i>dot</i> edu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @misc{kim2024husky,
+        title={Husky: A Unified, Open-Source Language Agent for Multi-Step Reasoning}, 
+        author={Joongwon Kim and Bhargavi Paranjape and Tushar Khot and Hannaneh Hajishirzi},
+        year={2024},
+        eprint={2406.},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL}
+      } 
+    </code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p> -->
+          <p>
+            The source code for our website was adapted from <a
+              href="https://github.com/nerfies/nerfies.github.io">here</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
