@@ -1,6 +1,13 @@
 body {
     font-family: 'Noto Sans', sans-serif;
   }
+
+section {
+  margin-top: -3rem; /* Adjust the top margin */
+  margin-bottom: -3rem; /* Adjust the bottom margin */
+  padding-top: 1rem; /* Adjust the top padding */
+  padding-bottom: 1rem; /* Adjust the bottom padding */
+}
   
   
   .footer .icon-link {
@@ -16,6 +23,10 @@ body {
   .husky {
     font-variant: small-caps;
     font-family: Georgia, 'Times New Roman', Times, serif
+  }
+
+  .is-centered {
+    margin-bottom: 0px;
   }
   
   
